@@ -11,7 +11,15 @@
 - **Response**:
   ```json
   {
-    "id": "1",
+    "title": "Meme Title",
     "url": "https://link-to-meme-image.jpg",
-    "title": "Funny Meme Title"
+    "postLink": "https://link-to-meme.com",
+    "nsfw": false,
+    "spoiler": false,
+    "subreddit": "subreddit_name",
+    "author": "meme_author",
+    "width": 800,
+    "height": 600,
+    "numComments": 0,
+    "tags": []
   }
