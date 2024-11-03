@@ -1,18 +1,33 @@
-// Import the express library and assign it to a variable
-import express from 'express'
+import express from 'express';
+import fetch from 'node-fetch'; // Make sure to install this package if needed
 
-// Create an instance of an express application 
-const app = express()
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Set the port the application will be running on
-const port = process.env.PORT || 3001
+// Example route for getting a random meme
+app.get('/meme/random', async (req, res) => {
+    try {
+        const response = await fetch('https://some-meme-api.com/random'); // Replace with actual meme API URL
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch meme' });
+    }
+});
 
-// Set up a response for the root path of the application
-app.get('/', (req, res) => {
-  res.send("Write an instruction for a drawing here. For example: draw a line across the page, draw 10 circles of different sizes, draw a duck.")
-})
+// Example route with query parameters for specific memes
+app.get('/meme', async (req, res) => {
+    const { category } = req.query; // Assuming you can filter by category
+    try {
+        const response = await fetch(`https://some-meme-api.com/memes?category=${category}`); // Replace with actual meme API URL
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch memes' });
+    }
+});
 
-// Set the application to listen a port
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}` )
-})
+// Start the server
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
