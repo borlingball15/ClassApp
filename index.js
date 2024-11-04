@@ -19,3 +19,28 @@ app.get('/nationality/:nationality/residence/:residence', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+
+
+// Update the express app code below to this:
+app.get('/', (req, res) => {
+  const randomSentence = sentence()
+
+  res.send(randomSentence)
+})
+
+// Example of an application route that makes a request to another server
+app.get('/advice', async (req, res) => {
+    // Make a request to another wbesite and wait for a response
+    const response = await fetch('https://api.adviceslip.com/advice')
+  
+    // Read the response
+    const body = await response.json()
+  
+    // Print the repsonse body to the console
+    console.log(body)
+  
+    // Get the advice text string from the response body object
+    const advice = body.slip.advice
+  
+    res.json({ data: advice })
+  })
